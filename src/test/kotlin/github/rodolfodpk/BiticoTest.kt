@@ -20,7 +20,7 @@ class BiticoTest {
         val schema = listOf(listOf("endereço", "cardinality", "one"),
                 listOf("telefone", "cardinality", "many"))
 
-        val presentFactsList = presentFactsList(presentRecordMap(facts, schema))
+        val presentFactsList = presentFactsList(entityDatabase(facts, schema))
 
         println("\n--- present facts ")
         presentFactsList.forEach({println(it)})
@@ -44,7 +44,7 @@ class BiticoTest {
         val schema = listOf(listOf("endereço", "cardinality", "one"),
                      listOf("telefone", "cardinality", "many"))
 
-        val presentFactsList = presentFactsList(presentRecordMap(facts, schema))
+        val presentFactsList = presentFactsList(entityDatabase(facts, schema))
 
         println("\n--- present facts ")
         presentFactsList.forEach({println(it)})

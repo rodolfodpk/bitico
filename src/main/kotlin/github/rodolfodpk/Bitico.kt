@@ -21,7 +21,7 @@ fun main(args: Array<String>) {
     val schema = listOf(listOf("endereço", "cardinality", "one"),
             listOf("telefone", "cardinality", "many"))
 
-    val presentFactsList = presentFactsList(presentRecordMap(facts, schema))
+    val presentFactsList = presentFactsList(entityDatabase(facts, schema))
 
     println("\n--- present facts ")
     presentFactsList.forEach({println(it)})
@@ -46,7 +46,7 @@ typealias EntityInstance = MutableMultimap<String, String> // fieldId as key and
  * Function to build the present records (by applying the facts to it's respective records)
  * return an EntityDatabase
  */
-fun presentRecordMap(facts: List<List<Any>>, schema: List<List<String>>) : EntityDatabase {
+fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityDatabase {
 
     val db: EntityDatabase = mutableMapOf()
     val schemaAsMap = schema.associateBy({ it[0] } , { it[2] })
