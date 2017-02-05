@@ -1,3 +1,7 @@
+# bitico
+
+[![Build Status](https://travis-ci.org/rodolfodpk/bitico.svg?branch=master)](https://travis-ci.org/rodolfodpk/bitico)
+
 ## Requirements
 
 1. Java 8 
