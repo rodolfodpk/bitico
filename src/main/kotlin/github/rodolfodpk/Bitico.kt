@@ -79,7 +79,7 @@ fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityD
         if (!(flag as Boolean)) {
             entityInstance.remove(fieldId, fieldValue)
             db.put(recordId as String, entityInstance)
-            continue // just add it then continue
+            continue // just remove it then continue
         }
 
         // if field id already exists for the current record instance and it must be added with new state
