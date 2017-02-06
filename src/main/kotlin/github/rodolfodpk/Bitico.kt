@@ -60,7 +60,7 @@ fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityD
             continue // just add it then continue
         }
 
-        // if adding this field for the first time (for the current record instance)
+        // if adding this field for the first time (for the current entity instance)
         val fieldValues = entityInstance.get(fieldId as String)
         if (fieldValues.size==0) {
             if (!(flag as Boolean)) continue
