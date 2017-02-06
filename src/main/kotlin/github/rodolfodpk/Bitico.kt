@@ -29,7 +29,7 @@ fun main(args: Array<String>) {
 }
 
 /**
- * Added these type alias to improve readability
+ * Added these type aliases to improve readability
  */
 
 typealias EntityDatabase = MutableMap<String, EntityInstance> // name as a key
