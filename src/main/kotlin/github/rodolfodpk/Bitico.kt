@@ -60,30 +60,35 @@ fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityD
         // if adding this entity for first time
         val entityInstance = db.get(recordId)
         if (entityInstance == null) {
-            if (flag == false) continue
+            if (!(flag as Boolean)) continue
             val newInstance = Multimaps.mutable.list.with(fieldId as String, fieldValue as String)
             db.put(recordId as String, newInstance)
             continue // just add it then continue
         }
 
         // if adding this field for the first time (for the current record instance)
-        if (entityInstance.get(fieldId as String)==null && flag==true) {
+        val fieldValues = entityInstance.get(fieldId as String)
+        if (fieldValues.size==0) {
+            if (!(flag as Boolean)) continue
             entityInstance.put(fieldId, fieldValue as String)
             db.put(recordId as String, entityInstance)
             continue // just add it then continue
         }
 
-        // if field id already exists for the current record instance
+        // if the fieldValue must be deleted
+        if (!(flag as Boolean)) {
+            entityInstance.remove(fieldId, fieldValue)
+            db.put(recordId as String, entityInstance)
+            continue // just add it then continue
+        }
+
+        // if field id already exists for the current record instance and it must be added with new state
         val schemaOfField = schemaAsMap[fieldId]
         if (schemaOfField.equals("one")) {
             entityInstance.removeAll(fieldId)
             entityInstance.put(fieldId, fieldValue as String)
         } else {
-            if (flag==false) {
-                entityInstance.remove(fieldId, fieldValue)
-            } else {
-                entityInstance.put(fieldId, fieldValue as String)
-            }
+            entityInstance.put(fieldId, fieldValue as String)
         }
         db.put(recordId as String, entityInstance)
 

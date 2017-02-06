@@ -53,4 +53,48 @@ class BiticoTest {
         assert(presentFactsList.contains(facts[0]))
         assert(presentFactsList.contains(facts[2]))
     }
+
+    @Test
+    fun testing_with_dateset3() {
+
+        val facts = listOf(listOf("gabriel", "endereço", "av rio branco, 109", true),
+                           listOf("gabriel", "endereço", "av paulista, 900", false)
+                          )
+
+        val schema = listOf(listOf("endereço", "cardinality", "one"),
+                     listOf("telefone", "cardinality", "many"))
+
+        val presentFactsList = presentFactsList(entityDatabase(facts, schema))
+
+        println("\n--- present facts ")
+        presentFactsList.forEach({println(it)})
+
+        assert(presentFactsList.size==1)
+        assert(presentFactsList.contains(facts[0]))
+    }
+
+
+    @Test
+    fun testing_with_dateset4() {
+
+        val facts = listOf(listOf("gabriel", "endereço", "av rio branco, 109", true),
+                listOf("gabriel", "profissao", "surfista", true),
+                listOf("gabriel", "hobby", "programar", true)
+        )
+
+        val schema = listOf(listOf("endereço", "cardinality", "one"),
+                        listOf("profissao", "cardinality", "one"),
+                        listOf("hobby", "cardinality", "many")
+                )
+
+        val presentFactsList = presentFactsList(entityDatabase(facts, schema))
+
+        println("\n--- present facts ")
+        presentFactsList.forEach({println(it)})
+
+        assert(presentFactsList.size==3)
+        assert(presentFactsList.contains(facts[0]))
+        assert(presentFactsList.contains(facts[1]))
+        assert(presentFactsList.contains(facts[2]))
+    }
 }
