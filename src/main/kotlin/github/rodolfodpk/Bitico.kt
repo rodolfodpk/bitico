@@ -102,7 +102,7 @@ fun presentFactsList(db : EntityDatabase): List<List<Any>> {
     val result: MutableList<List<Any>> = mutableListOf()
     for ((entityId, fieldsValues) in db) {
          fieldsValues.forEachKeyValue {
-             _fieldId, _fieldValue -> result.add(listOf(entityId, _fieldId, _fieldValue,true))
+             _fieldId, _fieldValue -> result.add(listOf(entityId, _fieldId, _fieldValue, true))
          }
     }
     return result
