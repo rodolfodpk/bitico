@@ -26,12 +26,6 @@ fun main(args: Array<String>) {
     println("\n--- present facts ")
     presentFactsList.forEach({println(it)})
 
-    assert(presentFactsList.size==5)
-    assert(presentFactsList.contains(facts[0]))
-    assert(presentFactsList.contains(facts[6]))
-    assert(presentFactsList.contains(facts[7]))
-    assert(presentFactsList.contains(facts[2]))
-    assert(presentFactsList.contains(facts[4]))
 }
 
 /**
