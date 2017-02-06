@@ -37,7 +37,7 @@ typealias EntityDatabase = MutableMap<String, EntityInstance> // name as a key
 typealias EntityInstance = MutableMultimap<String, String> // fieldId as key and fieldValue as values
 
 /**
- * Function to build the present records (by applying the facts to it's respective records)
+ * Function to build the present entity instances(by applying the facts to it's respective entity instance)
  * return an EntityDatabase
  */
 fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityDatabase {
@@ -47,16 +47,16 @@ fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityD
 
     println("\n*** given these facts ")
 
-    for ((recordId, fieldId, fieldValue, flag) in facts) {
+    for ((entityId, fieldId, fieldValue, flag) in facts) {
 
-        println ("$recordId, $fieldId, $fieldValue, $flag")
+        println ("$entityId, $fieldId, $fieldValue, $flag")
 
         // if adding this entity for first time
-        val entityInstance = db.get(recordId)
+        val entityInstance = db.get(entityId)
         if (entityInstance == null) {
             if (!(flag as Boolean)) continue
             val newInstance = Multimaps.mutable.list.with(fieldId as String, fieldValue as String)
-            db.put(recordId as String, newInstance)
+            db.put(entityId as String, newInstance)
             continue // just add it then continue
         }
 
@@ -65,24 +65,24 @@ fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityD
         if (fieldValues.size==0) {
             if (!(flag as Boolean)) continue
             entityInstance.put(fieldId, fieldValue as String)
-            db.put(recordId as String, entityInstance)
+            db.put(entityId as String, entityInstance)
             continue // just add it then continue
         }
 
         // if the fieldValue must be deleted
         if (!(flag as Boolean)) {
             entityInstance.remove(fieldId, fieldValue)
-            db.put(recordId as String, entityInstance)
+            db.put(entityId as String, entityInstance)
             continue // just remove it then continue
         }
 
-        // if field id already exists for the current record instance and it must be added with new state
+        // if field id already exists for the current entity instance and it must be added with new state
         val schemaOfField = schemaAsMap[fieldId]
         if (schemaOfField.equals("one")) {
             entityInstance.removeAll(fieldId)
         }
         entityInstance.put(fieldId, fieldValue as String)
-        db.put(recordId as String, entityInstance)
+        db.put(entityId as String, entityInstance)
 
     }
 
