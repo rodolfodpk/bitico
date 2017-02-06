@@ -86,10 +86,8 @@ fun entityDatabase(facts: List<List<Any>>, schema: List<List<String>>) : EntityD
         val schemaOfField = schemaAsMap[fieldId]
         if (schemaOfField.equals("one")) {
             entityInstance.removeAll(fieldId)
-            entityInstance.put(fieldId, fieldValue as String)
-        } else {
-            entityInstance.put(fieldId, fieldValue as String)
         }
+        entityInstance.put(fieldId, fieldValue as String)
         db.put(recordId as String, entityInstance)
 
     }
